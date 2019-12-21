@@ -14,6 +14,9 @@ import { auth, firestore } from "../../../firebase/firebase";
 // Context
 import FireBaseContext from "../../../context/firebaseContext";
 
+// Const
+import Const from "../../../const/const";
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -46,7 +49,7 @@ class Login extends React.Component {
           // get user details
           var userData = this.getUserDetails(res.user.uid);
           this.context.setUserData(userData);
-          this.props.history.push("/supplier/home");
+          window.location = `${Const.BASE_URL}/supplier/home`;
         })
         .catch(err => {
           this.setState({

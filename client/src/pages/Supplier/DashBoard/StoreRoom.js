@@ -2,8 +2,10 @@ import React from "react";
 import "./Home.css";
 
 // Boot{strap Components
-import { Row, Col, Button, Table } from "react-bootstrap";
+import { Row, Col, Button, Table, Spinner, Form } from "react-bootstrap";
 
+// React Spinners
+import { ClipLoader } from "react-spinners";
 // Fontawesome icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +18,8 @@ class StoreRoom extends React.Component {
   constructor() {
     super();
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      searchResults: []
     };
   }
 
@@ -26,6 +29,80 @@ class StoreRoom extends React.Component {
       isModalOpen: true
     });
   };
+
+  // search products
+  search = e => {
+    var value = e.target.value;
+    var tempWareHouse = this.context.userDetails.wareHouse;
+    var filteredData = tempWareHouse.filter(
+      item =>
+        item.productName.toLowerCase().indexOf(value.toLowerCase().trim()) !==
+        -1
+    );
+    console.log(value);
+    if (value.trim() === "") {
+      this.setState({ searchResults: [] });
+    }
+    this.setState({
+      searchResults: filteredData
+    });
+  };
+
+  renderTable = tableData => {
+    return (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData !== undefined ? (
+            tableData.map((item, index) => {
+              var itemStatus;
+              var itemStatusColor;
+              if (item.quantity < 50) {
+                itemStatus = "Less Stock";
+                itemStatusColor = "text-warning";
+              } else if (item.quantity <= 0) {
+                itemStatus = "Out Of Stock";
+                itemStatusColor = "text-danger";
+              } else {
+                itemStatus = "Stock Available";
+                itemStatusColor = "text-success";
+              }
+              return (
+                <tr key={index}>
+                  <td>
+                    {"PR-"}
+                    {index}
+                  </td>
+                  <td>{item.productName}</td>
+                  <td>{item.productDescription}</td>
+                  <td>{item.quantity}</td>
+                  <td>
+                    <p className={itemStatusColor}>{itemStatus}</p>
+                  </td>
+                  <td>
+                    <Button variant="warning">Edit</Button>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <center>
+              <h5 className="mt-3">No data found</h5>
+            </center>
+          )}
+        </tbody>
+      </Table>
+    );
+  };
   render() {
     return (
       <div>
@@ -34,15 +111,21 @@ class StoreRoom extends React.Component {
             <h5 className="text-white">Store Room</h5>
           </Col>
           <Col className="d-flex justify-content-end mr-5 p-2">
+            <Form.Control
+              type="search"
+              placeholder="Search by product name or product ID"
+              onChange={this.search}
+              name="searchText"
+            />
+            <Button variant="primary" className="ml-2">
+              <FontAwesomeIcon icon={faSearch} />
+            </Button>
             <Button
               variant="success"
-              className="mr-2"
+              className="ml-2"
               onClick={this.addNewItem}
             >
               <FontAwesomeIcon icon={faPlus} />
-            </Button>
-            <Button variant="primary">
-              <FontAwesomeIcon icon={faSearch} />
             </Button>
           </Col>
         </Row>
@@ -50,49 +133,21 @@ class StoreRoom extends React.Component {
         {/* Body */}
         {/* Table */}
         <div className="mt-2 ml-2 mr-4">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.context.userDetails.wareHouse !== undefined
-                ? this.context.userDetails.wareHouse.map((item, index) => {
-                    var itemStatus;
-                    var itemStatusColor;
-                    if (item.quantity < 50) {
-                      itemStatus = "Less Stock";
-                      itemStatusColor = "text-warning";
-                    } else if (item.quantity <= 0) {
-                      itemStatus = "Out Of Stock";
-                      itemStatusColor = "text-danger";
-                    } else {
-                      itemStatus = "Stock Available";
-                      itemStatusColor = "text-success";
-                    }
-                    return (
-                      <tr>
-                        <td>
-                          {"PR-"}
-                          {index}
-                        </td>
-                        <td>{item.productName}</td>
-                        <td>{item.productDescription}</td>
-                        <td>{item.quantity}</td>
-                        <td>
-                          <p className={itemStatusColor}>{itemStatus}</p>
-                        </td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </Table>
+          {this.context.userDetails.wareHouse !== undefined &&
+          this.state.searchResults.length === 0 ? (
+            this.renderTable(this.context.userDetails.wareHouse)
+          ) : this.state.searchResults.length > 0 ? (
+            this.renderTable(this.state.searchResults)
+          ) : (
+            <center>
+              <ClipLoader
+                size={80}
+                color={"#123abc"}
+                loading={true}
+                className="mt-5"
+              />
+            </center>
+          )}
           {/* Modal */}
         </div>
         <AddItemToStoreRoom
