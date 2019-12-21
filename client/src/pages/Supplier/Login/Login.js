@@ -7,10 +7,12 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 // Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { loginSupplier } from "../../../actions/supplierActions";
 
 // Firebase
 import { auth } from "../../../firebase/firebase";
+
+// Context
+import FireBaseContext from "../../../context/firebaseContext";
 
 class Login extends React.Component {
   constructor() {
@@ -18,6 +20,8 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      emailError: "",
+      passwordError: "",
       loading: false
     };
   }
@@ -32,17 +36,29 @@ class Login extends React.Component {
   // login action
   login = () => {
     this.setState({ loading: true });
-    auth
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(res => {
-        console.log(res);
-        this.setState({ loading: false });
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ loading: false });
+    if (this.state.email !== "" && this.state.password !== "") {
+      auth
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(res => {
+          this.context.setUserID(res.user.uid);
+          this.setState({ loading: false });
+          this.props.history.push("/supplier/home");
+        })
+        .catch(err => {
+          this.setState({
+            emailError: err.message,
+            loading: false
+          });
+        });
+    } else {
+      this.setState({
+        emailError: "Enter the details",
+        passwordError: "Enter the details",
+        loading: false
       });
+    }
   };
+
   render() {
     return (
       <div>
@@ -54,6 +70,7 @@ class Login extends React.Component {
                 <img
                   src="https://cdn-images-1.medium.com/max/1000/1*ZU1eWct801yP-QpUJOaI6Q.png"
                   className="w-25 mt-5"
+                  alt=""
                 />
 
                 <h5 className="mt-3 text-dark">Welcome back !</h5>
@@ -64,6 +81,9 @@ class Login extends React.Component {
 
               {/* Form */}
               <div className="mt-5 m-2 loginForm">
+                <Form.Text className="text-danger">
+                  {this.state.emailError}
+                </Form.Text>
                 <Form.Control
                   type="text"
                   onChange={this.handleChange}
@@ -71,6 +91,10 @@ class Login extends React.Component {
                   placeholder="Your Email or Phone"
                   className="mb-3 input"
                 ></Form.Control>
+
+                <Form.Text className="text-danger">
+                  {this.state.passwordError}
+                </Form.Text>
                 <Form.Control
                   type="password"
                   name="password"
@@ -78,7 +102,13 @@ class Login extends React.Component {
                   className="mb-3 input"
                   onChange={this.handleChange}
                 ></Form.Control>
-                <Button className="loginButton btn-block" onClick={this.login}>
+
+                <Button
+                  className={`loginButton btn-block ${
+                    this.state.loading ? "disabled" : ""
+                  }`}
+                  onClick={this.login}
+                >
                   {this.state.loading
                     ? "Loading"
                     : "Login in to supplier portal"}
@@ -98,7 +128,10 @@ class Login extends React.Component {
                   <Col className="d-flex justify-content-end align-items-center">
                     <p className="small">
                       Dont have an account !{" "}
-                      <a href="#" className="small text-primary">
+                      <a
+                        href="/supplierRegister"
+                        className="small text-primary"
+                      >
                         Get Started
                       </a>
                     </p>
@@ -113,4 +146,5 @@ class Login extends React.Component {
     );
   }
 }
+Login.contextType = FireBaseContext;
 export default Login;
