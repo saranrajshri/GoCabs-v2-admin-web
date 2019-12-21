@@ -6,6 +6,8 @@ import FireBaseContext from "./context/firebaseContext";
 
 // Supplier Pages
 import Login from "./pages/Supplier/Login/Login";
+import Home from "./pages/Supplier/DashBoard/Home";
+import { firestore } from "./firebase/firebase";
 
 class App extends React.Component {
   constructor() {
@@ -23,15 +25,34 @@ class App extends React.Component {
     });
   };
 
+  // set user details to context
+  setUserData = userData => {
+    this.setState({
+      userDetails: userData
+    });
+  };
+
+  // sleep function
+  sleep = milliseconds => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
+
   render() {
     return (
       <FireBaseContext.Provider
-        value={{ ...this.state, setUserID: this.setUserID }}
+        value={{
+          ...this.state,
+          setUserID: this.setUserID,
+          setUserData: this.setUserData,
+          sleep: this.sleep
+        }}
       >
         <div className="App">
           <Router>
             <Switch>
+              {/* Supplier Routes */}
               <Route path="/supplierLogin" exact component={Login} />
+              <Route path="/supplier/home" exact component={Home} />
             </Switch>
           </Router>
         </div>

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 // Firebase
-import { auth } from "../../../firebase/firebase";
+import { auth, firestore } from "../../../firebase/firebase";
 
 // Context
 import FireBaseContext from "../../../context/firebaseContext";
@@ -42,6 +42,10 @@ class Login extends React.Component {
         .then(res => {
           this.context.setUserID(res.user.uid);
           this.setState({ loading: false });
+
+          // get user details
+          var userData = this.getUserDetails(res.user.uid);
+          this.context.setUserData(userData);
           this.props.history.push("/supplier/home");
         })
         .catch(err => {
@@ -57,6 +61,17 @@ class Login extends React.Component {
         loading: false
       });
     }
+  };
+
+  // get user details using user id
+  getUserDetails = userID => {
+    firestore
+      .collection("suppliers")
+      .doc(userID)
+      .get()
+      .then(user => {
+        return user.data();
+      });
   };
 
   render() {
