@@ -39,7 +39,8 @@ class StoreRoom extends React.Component {
     var filteredData = tempWareHouse.filter(
       item =>
         item.productName.toLowerCase().indexOf(value.toLowerCase().trim()) !==
-        -1
+          -1 ||
+        item.productID.toLowerCase().indexOf(value.toLowerCase().trim()) !== -1
     );
     console.log(value);
     if (value.trim() === "") {
@@ -82,10 +83,7 @@ class StoreRoom extends React.Component {
               }
               return (
                 <tr key={index}>
-                  <td>
-                    {"PR-"}
-                    {index}
-                  </td>
+                  <td>{item.productID}</td>
                   <td>{item.productName}</td>
                   <td>{item.productDescription}</td>
                   <td>{item.quantity}</td>
@@ -117,7 +115,7 @@ class StoreRoom extends React.Component {
           <Col className="d-flex justify-content-end mr-5 p-2">
             <Form.Control
               type="search"
-              placeholder="Search by product name "
+              placeholder="Search by product name or product ID "
               onChange={this.search}
               name="searchText"
             />
