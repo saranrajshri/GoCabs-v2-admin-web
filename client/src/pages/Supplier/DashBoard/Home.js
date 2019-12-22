@@ -17,7 +17,8 @@ import {
   faBoxOpen,
   faStreetView,
   faMoneyBillAlt,
-  faInfoCircle
+  faInfoCircle,
+  faShoppingCart
 } from "@fortawesome/free-solid-svg-icons";
 
 // firebase
@@ -33,6 +34,7 @@ import Const from "../../../const/const";
 import OverView from "./OverView";
 import PostProducts from "./PostProducts";
 import StoreRoom from "./StoreRoom";
+import MyProducts from "./MyProducts";
 
 class Home extends React.Component {
   constructor() {
@@ -78,7 +80,7 @@ class Home extends React.Component {
         <SupplierHeader />
         {/* Body */}
         <div>
-          <Tab.Container id="left-tabs-example" defaultActiveKey="postProducts">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="myProducts">
             <Row className="wrapper">
               <Col md={3} className="sideBar">
                 <p className="smallText">NAVIGATION</p>
@@ -108,9 +110,12 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="checkStock">
-                      <FontAwesomeIcon icon={faChartBar} className="tabIcon" />
-                      Check Stock
+                    <Nav.Link eventKey="myProducts">
+                      <FontAwesomeIcon
+                        icon={faShoppingCart}
+                        className="tabIcon"
+                      />
+                      My Products
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
@@ -145,7 +150,7 @@ class Home extends React.Component {
                   </Nav.Item>
                 </Nav>
               </Col>
-              <Col md={9} className="p-0">
+              <Col md={9} className="pl-2 pr-4">
                 <Tab.Content>
                   <Tab.Pane eventKey="overview">
                     <OverView />
@@ -155,6 +160,9 @@ class Home extends React.Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey="storeRoom">
                     <StoreRoom />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="myProducts">
+                    <MyProducts />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

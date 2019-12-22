@@ -1,7 +1,7 @@
 import React from "react";
 
 // Bootsrap Components
-import { Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Row, Col, Form, Alert } from "react-bootstrap";
 
 // Context
 import FireBaseContext from "../../../context/firebaseContext";
@@ -32,30 +32,41 @@ class PostProducts extends React.Component {
   // Post products and save it firestore
   //this function is called from the imageUploader Component
   postProduct = () => {
-    var tempProducts = this.context.userDetails.products;
-    var newData = {
-      productID: this.state.productID,
-      price: this.state.price,
-      imageURL: this.context.tempImageURL
-    };
-    tempProducts.push(newData);
+    this.setState({ errorMessage: "", successMessage: "" });
+    if (
+      this.state.productName !== "" &&
+      this.state.price !== "" &&
+      this.context.tempImageURL !== ""
+    ) {
+      var tempProducts = this.context.userDetails.products;
+      var newData = {
+        productID: this.state.productID,
+        price: this.state.price,
+        imageURL: this.context.tempImageURL
+      };
+      tempProducts.push(newData);
 
-    // Send data to firebase
-    firestore
-      .collection("suppliers")
-      .doc(this.context.userID)
-      .set({ products: tempProducts }, { merge: true })
-      .then(res => {
-        this.setState({
-          successMessage:
-            "Product Posted SuccessFully...! Check the products page"
+      // Send data to firebase
+      firestore
+        .collection("suppliers")
+        .doc(this.context.userID)
+        .set({ products: tempProducts }, { merge: true })
+        .then(res => {
+          this.setState({
+            successMessage:
+              "Product Posted SuccessFully...! Check the products page"
+          });
+        })
+        .catch(err => {
+          this.setState({
+            errorMessage: err.message
+          });
         });
-      })
-      .catch(err => {
-        this.setState({
-          errorMessage: err.message
-        });
+    } else {
+      this.setState({
+        errorMessage: "Enter All the details"
       });
+    }
   };
 
   render() {
