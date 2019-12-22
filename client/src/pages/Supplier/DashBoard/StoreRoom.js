@@ -108,7 +108,7 @@ class StoreRoom extends React.Component {
   render() {
     return (
       <div>
-        <Row className="pt-1 bg-dark">
+        <Row className="pt-1 storeRoomHeader">
           <Col className="p-2 ml-5">
             <h5 className="text-white">Store Room</h5>
           </Col>

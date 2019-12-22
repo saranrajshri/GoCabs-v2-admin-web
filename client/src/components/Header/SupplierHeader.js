@@ -8,7 +8,22 @@ import "./SupplierHeader.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
+// Context
+import FireBaseContext from "../../context/firebaseContext";
+
+// Const
+import Const from "../../const/const";
+
+// firebase
+import { auth } from "../../firebase/firebase";
+
 class Header extends React.Component {
+  // logout
+  logout = () => {
+    auth.signOut().then(() => {
+      window.location = `${Const.BASE_URL}/supplierLogin`;
+    });
+  };
   render() {
     return (
       <div>
@@ -28,12 +43,19 @@ class Header extends React.Component {
               className="searchBar w-25"
               placeholder="Search"
             ></Form.Control>
-            <h5 className="supplierName">Supplier Name</h5>
-            <FontAwesomeIcon icon={faSignOutAlt} className="headerIcon" />
+            <h5 className="supplierName">
+              {this.context.userDetails.agencyName}
+            </h5>
+            <FontAwesomeIcon
+              icon={faSignOutAlt}
+              className="headerIcon"
+              onClick={this.logout}
+            />
           </Navbar.Collapse>
         </Navbar>
       </div>
     );
   }
 }
+Header.contextType = FireBaseContext;
 export default Header;

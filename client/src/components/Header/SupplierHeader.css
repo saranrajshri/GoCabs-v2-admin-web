@@ -38,3 +38,6 @@
     letter-spacing: 2px;
     
 }
+.headerIcon{
+    cursor: pointer;
+}
