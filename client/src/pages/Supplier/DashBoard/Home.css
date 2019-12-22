@@ -1,8 +1,9 @@
+.wrapper{
+    height: 700px;
+}
 .sideBar{
     background-color: #3e3762;
     padding:20px;
-    height: 579px;
-
 }
 .sideBar .nav-link.active{
     background-color: #3e3762;

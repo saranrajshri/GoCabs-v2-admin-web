@@ -6,6 +6,7 @@ import { Row, Col, Button, Table, Spinner, Form } from "react-bootstrap";
 
 // React Spinners
 import { ClipLoader } from "react-spinners";
+
 // Fontawesome icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +20,8 @@ class StoreRoom extends React.Component {
     super();
     this.state = {
       isModalOpen: false,
-      searchResults: []
+      searchResults: [],
+      searchResultsIsOpen: false
     };
   }
 
@@ -41,10 +43,12 @@ class StoreRoom extends React.Component {
     );
     console.log(value);
     if (value.trim() === "") {
-      this.setState({ searchResults: [] });
-    }
+      this.setState({ searchResults: [], searchResultsIsOpen: false });
+    } else if (filteredData.length === 0)
+      this.setState({ searchResultsIsOpen: false });
     this.setState({
-      searchResults: filteredData
+      searchResults: filteredData,
+      searchResultsIsOpen: true
     });
   };
 
@@ -113,7 +117,7 @@ class StoreRoom extends React.Component {
           <Col className="d-flex justify-content-end mr-5 p-2">
             <Form.Control
               type="search"
-              placeholder="Search by product name or product ID"
+              placeholder="Search by product name "
               onChange={this.search}
               name="searchText"
             />
@@ -134,9 +138,9 @@ class StoreRoom extends React.Component {
         {/* Table */}
         <div className="mt-2 ml-2 mr-4">
           {this.context.userDetails.wareHouse !== undefined &&
-          this.state.searchResults.length === 0 ? (
+          !this.state.searchResultsIsOpen ? (
             this.renderTable(this.context.userDetails.wareHouse)
-          ) : this.state.searchResults.length > 0 ? (
+          ) : this.state.searchResultsIsOpen ? (
             this.renderTable(this.state.searchResults)
           ) : (
             <center>

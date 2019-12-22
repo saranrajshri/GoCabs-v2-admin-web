@@ -78,9 +78,9 @@ class Home extends React.Component {
         <SupplierHeader />
         {/* Body */}
         <div>
-          <Tab.Container id="left-tabs-example" defaultActiveKey="storeRoom">
-            <Row>
-              <Col md={3} className="sideBar sticky-top">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="postProducts">
+            <Row className="wrapper">
+              <Col md={3} className="sideBar">
                 <p className="smallText">NAVIGATION</p>
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
@@ -108,25 +108,25 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link eventKey="checkStock">
                       <FontAwesomeIcon icon={faChartBar} className="tabIcon" />
                       Check Stock
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link eventKey="ordres">
                       <FontAwesomeIcon icon={faBoxOpen} className="tabIcon" />
                       Orders
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link eventKey="createWorkOrders">
                       <FontAwesomeIcon icon={faChartBar} className="tabIcon" />
                       Create WorkOrders
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link eventKey="trackOrders">
                       <FontAwesomeIcon
                         icon={faStreetView}
                         className="tabIcon"
@@ -135,7 +135,7 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link eventKey="driverAuctionArea">
                       <FontAwesomeIcon
                         icon={faMoneyBillAlt}
                         className="tabIcon"

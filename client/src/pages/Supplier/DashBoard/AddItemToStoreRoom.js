@@ -36,7 +36,9 @@ class AddItemToStoreRoom extends React.Component {
       this.state.productDescription !== "" &&
       this.state.quantity !== ""
     ) {
+      const productID = "PR-" + this.context.userDetails.wareHouse.length + 1;
       var newData = {
+        productID: productID,
         productName: this.state.productName,
         productDescription: this.state.productDescription,
         quantity: this.state.quantity

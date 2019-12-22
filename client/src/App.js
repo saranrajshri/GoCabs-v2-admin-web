@@ -14,7 +14,8 @@ class App extends React.Component {
     super();
     this.state = {
       userDetails: {},
-      userID: ""
+      userID: "",
+      tempImageURL: ""
     };
   }
 
@@ -32,6 +33,13 @@ class App extends React.Component {
     });
   };
 
+  // set temp image URL
+  setTempFirestorageImageURL = url => {
+    this.setState({
+      tempImageURL: url
+    });
+  };
+
   // sleep function
   sleep = milliseconds => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -44,7 +52,8 @@ class App extends React.Component {
           ...this.state,
           setUserID: this.setUserID,
           setUserData: this.setUserData,
-          sleep: this.sleep
+          sleep: this.sleep,
+          setTempFirestorageImageURL: this.setTempFirestorageImageURL
         }}
       >
         <div className="App">
