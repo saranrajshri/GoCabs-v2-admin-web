@@ -35,6 +35,7 @@ import OverView from "./OverView";
 import PostProducts from "./PostProducts";
 import StoreRoom from "./StoreRoom";
 import MyProducts from "./MyProducts";
+import Orders from "./Orders";
 
 class Home extends React.Component {
   constructor() {
@@ -80,7 +81,7 @@ class Home extends React.Component {
         <SupplierHeader />
         {/* Body */}
         <div>
-          <Tab.Container id="left-tabs-example" defaultActiveKey="myProducts">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="orders">
             <Row className="wrapper">
               <Col md={3} className="sideBar">
                 <p className="smallText">NAVIGATION</p>
@@ -119,7 +120,7 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="ordres">
+                    <Nav.Link eventKey="orders">
                       <FontAwesomeIcon icon={faBoxOpen} className="tabIcon" />
                       Orders
                     </Nav.Link>
@@ -163,6 +164,9 @@ class Home extends React.Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey="myProducts">
                     <MyProducts />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="orders">
+                    <Orders />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

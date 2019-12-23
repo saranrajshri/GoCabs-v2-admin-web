@@ -6,9 +6,6 @@ import { Row, Col, Button } from "react-bootstrap";
 // Context
 import FireBaseContext from "../../../context/firebaseContext";
 
-// Firebase
-import { firestore } from "../../../firebase/firebase";
-
 // react spinner
 import { ClipLoader } from "react-spinners";
 
