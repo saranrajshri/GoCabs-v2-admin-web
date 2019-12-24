@@ -31,11 +31,13 @@ import FireBaseContext from "../../../context/firebaseContext";
 import Const from "../../../const/const";
 
 // Components
-import OverView from "./OverView";
-import PostProducts from "./PostProducts";
-import StoreRoom from "./StoreRoom";
-import MyProducts from "./MyProducts";
-import Orders from "./Orders";
+import OverView from "./Tabs/OverView";
+import PostProducts from "./Tabs/PostProducts";
+import StoreRoom from "./Tabs/StoreRoom";
+import MyProducts from "./Tabs/MyProducts";
+import Orders from "./Tabs/Orders";
+import AssignDrivers from "./Tabs/AssignDrivers";
+import CalculateTripCost from "./Tabs/CalculateTripCost";
 
 class Home extends React.Component {
   constructor() {
@@ -81,7 +83,10 @@ class Home extends React.Component {
         <SupplierHeader />
         {/* Body */}
         <div>
-          <Tab.Container id="left-tabs-example" defaultActiveKey="orders">
+          <Tab.Container
+            id="left-tabs-example"
+            defaultActiveKey="assignDrivers"
+          >
             <Row className="wrapper">
               <Col md={3} className="sideBar">
                 <p className="smallText">NAVIGATION</p>
@@ -105,6 +110,15 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
+                    <Nav.Link eventKey="calculateTripCost">
+                      <FontAwesomeIcon
+                        icon={faPlusCircle}
+                        className="tabIcon"
+                      />
+                      Calculate Trip Cost
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
                     <Nav.Link eventKey="storeRoom">
                       <FontAwesomeIcon icon={faChartBar} className="tabIcon" />
                       Store Room
@@ -123,6 +137,12 @@ class Home extends React.Component {
                     <Nav.Link eventKey="orders">
                       <FontAwesomeIcon icon={faBoxOpen} className="tabIcon" />
                       Orders
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey="assignDrivers">
+                      <FontAwesomeIcon icon={faBoxOpen} className="tabIcon" />
+                      Assign Drivers
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
@@ -167,6 +187,12 @@ class Home extends React.Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey="orders">
                     <Orders />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="assignDrivers">
+                    <AssignDrivers />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="calculateTripCost">
+                    <CalculateTripCost />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

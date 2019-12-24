@@ -7,10 +7,10 @@ import { Row, Col, Button } from "react-bootstrap";
 import "./ImageUpload.css";
 
 // Firestorage
-import { storage } from "../../../firebase/firebase";
+import { storage } from "../../../../firebase/firebase";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 class ImageUpload extends React.Component {
   constructor(props) {

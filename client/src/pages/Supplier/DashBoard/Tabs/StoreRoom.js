@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home.css";
+import "../Home.css";
 
 // Boot{strap Components
 import { Row, Col, Button, Table, Spinner, Form } from "react-bootstrap";
@@ -10,10 +10,10 @@ import { ClipLoader } from "react-spinners";
 // Fontawesome icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
-import AddItemToStoreRoom from "./AddItemToStoreRoom";
+import AddItemToStoreRoom from "../components/AddItemToStoreRoom";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 class StoreRoom extends React.Component {
   constructor() {

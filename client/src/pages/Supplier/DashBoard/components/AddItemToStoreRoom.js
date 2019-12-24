@@ -4,10 +4,10 @@ import React from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 
 // firebase
-import { firestore } from "../../../firebase/firebase";
+import { firestore } from "../../../../firebase/firebase";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 class AddItemToStoreRoom extends React.Component {
   constructor() {

@@ -42,3 +42,6 @@
 .storeRoomHeader{
     background-color: #3e3762;
 }
+.overflow-y-hidden{
+    overflow-y: hidden !important;
+}

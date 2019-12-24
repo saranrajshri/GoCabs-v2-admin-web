@@ -4,13 +4,13 @@ import React from "react";
 import { Row, Col, Form, Alert } from "react-bootstrap";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 //Image Uploader Component
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../components/ImageUpload";
 
 // firebase
-import { firestore } from "../../../firebase/firebase";
+import { firestore } from "../../../../firebase/firebase";
 
 class PostProducts extends React.Component {
   constructor() {

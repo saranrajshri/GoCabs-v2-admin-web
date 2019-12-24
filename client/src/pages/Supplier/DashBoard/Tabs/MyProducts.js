@@ -4,7 +4,7 @@ import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 // react spinner
 import { ClipLoader } from "react-spinners";

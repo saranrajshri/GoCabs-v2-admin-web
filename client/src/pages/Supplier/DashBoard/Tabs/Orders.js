@@ -4,10 +4,7 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 // Context
-import FireBaseContext from "../../../context/firebaseContext";
-
-// Modal
-import CalculateTripCost from "./components/calculateTripCost";
+import FireBaseContext from "../../../../context/firebaseContext";
 
 class Orders extends React.Component {
   constructor() {
@@ -16,11 +13,6 @@ class Orders extends React.Component {
       isModalOpen: false
     };
   }
-
-  // open modal
-  calculateTripCost = () => {
-    this.setState({ isModalOpen: true });
-  };
 
   render() {
     return (
@@ -58,11 +50,8 @@ class Orders extends React.Component {
                       <td>{val.price + " RS"}</td>
                       <td>{val.dropLocation}</td>
                       <td>
-                        <Button
-                          variant="primary"
-                          onClick={this.calculateTripCost}
-                        >
-                          Calculate Trip Cost
+                        <Button variant="primary" onClick={this.assignDriver}>
+                          Assign Driver
                         </Button>
                       </td>
                     </tr>
@@ -71,16 +60,6 @@ class Orders extends React.Component {
               : null}
           </tbody>
         </Table>
-
-        {/* CalculateTripCost Modal*/}
-        <CalculateTripCost
-          isOpen={this.state.isModalOpen}
-          handleClose={() => {
-            this.setState({
-              isModalOpen: false
-            });
-          }}
-        />
       </div>
     );
   }
