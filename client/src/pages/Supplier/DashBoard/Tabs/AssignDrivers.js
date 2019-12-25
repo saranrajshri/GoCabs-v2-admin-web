@@ -12,6 +12,15 @@ import { calculateTripDetails } from "../../../../actions/mapActions";
 // react spinners
 import { ClipLoader } from "react-spinners";
 
+// maps
+import ShowRoute from "../components/Maps/ShowRoute";
+
+// firebase
+import { firestore } from "../../../../firebase/firebase";
+
+// Const
+import Const from "../../../../const/const";
+
 class AssignDrivers extends React.Component {
   constructor() {
     super();
@@ -59,6 +68,32 @@ class AssignDrivers extends React.Component {
     });
   };
 
+  // assign driver action
+  assignDriver = () => {
+    var tempData = this.context.userDetails;
+    tempData.orders[this.state.selectedOrder].driverID =
+      tempData.drivers[this.state.selectedDriver].id;
+    tempData.orders[this.state.selectedOrder].orderStatus = "assigned";
+    tempData.drivers[this.state.selectedDriver].status = "In Work";
+
+    // update orders
+    firestore
+      .collection("suppliers")
+      .doc(this.context.userID)
+      .set({ orders: tempData.orders }, { merge: true });
+    // update drivers
+    firestore
+      .collection("suppliers")
+      .doc(this.context.userID)
+      .set({ drivers: tempData.drivers }, { merge: true })
+      .then(() => {
+        alert("Driver assigned successfully...!");
+        window.location = `${Const.BASE_URL}/supplier/home`;
+      });
+  };
+  componentDidMount() {
+    document.body.style.overflow = "hidden";
+  }
   render() {
     return (
       <div className="p-3 overflow-y-hidden">
@@ -151,7 +186,8 @@ class AssignDrivers extends React.Component {
                   })}
                 </Form.Control>
                 <hr />
-                {this.state.selectedDriver !== "" ? (
+                {this.state.selectedDriver !== "" &&
+                this.state.tripDetails.cost !== undefined ? (
                   <div>
                     <h6>Driver Details</h6>
                     <hr />
@@ -199,6 +235,10 @@ class AssignDrivers extends React.Component {
                         ].status
                       }
                     </p>
+
+                    <Button variant="success" onClick={this.assignDriver}>
+                      Assign
+                    </Button>
                   </div>
                 ) : null}
               </Col>
@@ -216,9 +256,29 @@ class AssignDrivers extends React.Component {
         ) : null}
 
         {/* map */}
-        {/* <Row className="border border-muted p-2">
-          <Col></Col>
-        </Row> */}
+        {this.context.userDetails.orders !== undefined &&
+        this.state.selectedOrder !== "" ? (
+          <ShowRoute
+            className="mt-2"
+            originLat={
+              this.context.userDetails.orders[this.state.selectedOrder]
+                .pickUpLocationGeoPoint._lat
+            }
+            originLon={
+              this.context.userDetails.orders[this.state.selectedOrder]
+                .pickUpLocationGeoPoint._long
+            }
+            destinationLat={
+              this.context.userDetails.orders[this.state.selectedOrder]
+                .dropLocationGeoPoint._lat
+            }
+            destinationLon={
+              this.context.userDetails.orders[this.state.selectedOrder]
+                .dropLocationGeoPoint._long
+            }
+          />
+        ) : null}
+        <Row className="mt-5 mb-5"></Row>
       </div>
     );
   }
