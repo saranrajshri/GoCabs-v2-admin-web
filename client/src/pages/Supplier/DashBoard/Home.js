@@ -38,6 +38,7 @@ import MyProducts from "./Tabs/MyProducts";
 import Orders from "./Tabs/Orders";
 import AssignDrivers from "./Tabs/AssignDrivers";
 import CalculateTripCost from "./Tabs/CalculateTripCost";
+import AddDrivers from "./Tabs/AddDrivers";
 
 class Home extends React.Component {
   constructor() {
@@ -161,17 +162,17 @@ class Home extends React.Component {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="driverAuctionArea">
+                    <Nav.Link eventKey="addDrivers">
                       <FontAwesomeIcon
                         icon={faMoneyBillAlt}
                         className="tabIcon"
                       />
-                      Driver Auction Arena
+                      Add Drivers
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Col>
-              <Col md={9} className="pl-2 pr-4">
+              <Col md={9} className="pr-4">
                 <Tab.Content>
                   <Tab.Pane eventKey="overview">
                     <OverView />
@@ -193,6 +194,9 @@ class Home extends React.Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey="calculateTripCost">
                     <CalculateTripCost />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="addDrivers">
+                    <AddDrivers />
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

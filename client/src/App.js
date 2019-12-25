@@ -5,8 +5,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import FireBaseContext from "./context/firebaseContext";
 
 // Supplier Pages
-import Login from "./pages/Supplier/Login/Login";
+import SupplierLogin from "./pages/Supplier/Login/Login";
 import Home from "./pages/Supplier/DashBoard/Home";
+
+// Driver Pages
+import DriverLogin from "./pages/Driver/Login/Login";
+
+// firebase
 import { firestore } from "./firebase/firebase";
 
 class App extends React.Component {
@@ -59,8 +64,10 @@ class App extends React.Component {
         <div className="App">
           <Router>
             <Switch>
+              {/* Driver Routes */}
+              <Route path="/driverLogin" exact component={DriverLogin} />
               {/* Supplier Routes */}
-              <Route path="/supplierLogin" exact component={Login} />
+              <Route path="/supplierLogin" exact component={SupplierLogin} />
               <Route path="/supplier/home" exact component={Home} />
             </Switch>
           </Router>
