@@ -21,7 +21,7 @@ class Header extends React.Component {
   // logout
   logout = () => {
     auth.signOut().then(() => {
-      window.location = `${Const.BASE_URL}/supplierLogin`;
+      window.location = `${Const.BASE_URL}/adminLogin`;
     });
   };
   render() {
@@ -29,7 +29,7 @@ class Header extends React.Component {
       <div>
         <Navbar expand="lg" collapseOnSelect className="navbar">
           <Navbar.Brand href="#home">
-            <h5 className="brandLogo ml-5">MR JUTE</h5>
+            <h5 className="brandLogo ml-5">GO CABS [ Admin ]</h5>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
@@ -43,9 +43,7 @@ class Header extends React.Component {
               className="searchBar w-25"
               placeholder="Search"
             ></Form.Control>
-            <h5 className="supplierName">
-              {this.context.userDetails.agencyName}
-            </h5>
+            <h5 className="supplierName">Hello Admin</h5>
             <FontAwesomeIcon
               icon={faSignOutAlt}
               className="headerIcon"

@@ -25,14 +25,14 @@ class Login extends React.Component {
       password: "",
       emailError: "",
       passwordError: "",
-      loading: false
+      loading: false,
     };
   }
 
   // update values to the state
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -42,37 +42,37 @@ class Login extends React.Component {
     if (this.state.email !== "" && this.state.password !== "") {
       auth
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(res => {
+        .then((res) => {
           this.context.setUserID(res.user.uid);
           this.setState({ loading: false });
 
           // get user details
           var userData = this.getUserDetails(res.user.uid);
           this.context.setUserData(userData);
-          window.location = `${Const.BASE_URL}/supplier/home`;
+          window.location = `${Const.BASE_URL}/admin/home`;
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             emailError: err.message,
-            loading: false
+            loading: false,
           });
         });
     } else {
       this.setState({
         emailError: "Enter the details",
         passwordError: "Enter the details",
-        loading: false
+        loading: false,
       });
     }
   };
 
   // get user details using user id
-  getUserDetails = userID => {
+  getUserDetails = (userID) => {
     firestore
       .collection("suppliers")
       .doc(userID)
       .get()
-      .then(user => {
+      .then((user) => {
         return user.data();
       });
   };

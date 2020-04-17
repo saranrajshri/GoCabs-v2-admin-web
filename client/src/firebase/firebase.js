@@ -1,14 +1,14 @@
 import firebase from "firebase";
 
 const config = {
-  apiKey: "AIzaSyDiB7FTEyz17VMTEKNN2GOcLKrpsUP8mnQ",
-  authDomain: "smartindiahackathon2020.firebaseapp.com",
-  databaseURL: "https://smartindiahackathon2020.firebaseio.com",
-  projectId: "smartindiahackathon2020",
-  storageBucket: "smartindiahackathon2020.appspot.com",
-  messagingSenderId: "411359624710",
-  appId: "1:411359624710:web:296417ea43993983c04d87",
-  measurementId: "G-JGVDXHXYF7"
+  apiKey: "AIzaSyBiQ1Spea_6ahxWARm4RbNjYh0c7UeV2hk",
+  authDomain: "locationserv-15f40.firebaseapp.com",
+  databaseURL: "https://locationserv-15f40.firebaseio.com",
+  projectId: "locationserv-15f40",
+  storageBucket: "locationserv-15f40.appspot.com",
+  messagingSenderId: "100525534432",
+  appId: "1:100525534432:web:ee0f174a81836856757485",
+  measurementId: "G-TWT8LLDM1S",
 };
 
 firebase.initializeApp(config);

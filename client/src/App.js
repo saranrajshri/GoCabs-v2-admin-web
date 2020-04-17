@@ -4,12 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // Context
 import FireBaseContext from "./context/firebaseContext";
 
-// Supplier Pages
-import SupplierLogin from "./pages/Supplier/Login/Login";
-import Home from "./pages/Supplier/DashBoard/Home";
-
-// Driver Pages
-import DriverLogin from "./pages/Driver/Login/Login";
+// admin Pages
+import AdminLogin from "./pages/Admin/Login/Login";
+import Home from "./pages/Admin/DashBoard/Home";
 
 // firebase
 import { firestore } from "./firebase/firebase";
@@ -20,34 +17,27 @@ class App extends React.Component {
     this.state = {
       userDetails: {},
       userID: "",
-      tempImageURL: ""
+      tempImageURL: "",
     };
   }
 
   // Functions to store data in the context
-  setUserID = userID => {
+  setUserID = (userID) => {
     this.setState({
-      userID: userID
+      userID: userID,
     });
   };
 
   // set user details to context
-  setUserData = userData => {
+  setUserData = (userData) => {
     this.setState({
-      userDetails: userData
-    });
-  };
-
-  // set temp image URL
-  setTempFirestorageImageURL = url => {
-    this.setState({
-      tempImageURL: url
+      userDetails: userData,
     });
   };
 
   // sleep function
-  sleep = milliseconds => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
   render() {
@@ -58,17 +48,14 @@ class App extends React.Component {
           setUserID: this.setUserID,
           setUserData: this.setUserData,
           sleep: this.sleep,
-          setTempFirestorageImageURL: this.setTempFirestorageImageURL
+          setTempFirestorageImageURL: this.setTempFirestorageImageURL,
         }}
       >
         <div className="App">
           <Router>
             <Switch>
-              {/* Driver Routes */}
-              <Route path="/driverLogin" exact component={DriverLogin} />
-              {/* Supplier Routes */}
-              <Route path="/supplierLogin" exact component={SupplierLogin} />
-              <Route path="/supplier/home" exact component={Home} />
+              <Route path="/adminLogin" exact component={AdminLogin} />
+              <Route path="/admin/home" exact component={Home} />
             </Switch>
           </Router>
         </div>
